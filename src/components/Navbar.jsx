@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [theme, setTheme] = useState("light");
@@ -6,9 +7,8 @@ const Navbar = () => {
   const handleToggle = (event) => {
     if (event.target.checked) {
       setTheme("synthwave");
-    }
-    else{
-        setTheme("light");
+    } else {
+      setTheme("light");
     }
   };
 
@@ -18,28 +18,23 @@ const Navbar = () => {
     const localTheme = localStorage.getItem("theme");
 
     document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme])
-
-  
+  }, [theme]);
 
   return (
     <div className="navbar bg-base-100 shadow-lg px-4 fixed z-10">
       <div className="flex-1">
-        <a className="btn btn-ghost gap-0 text-secondary normal-case text-2xl">
+        <Link
+          to="/"
+          className="btn btn-ghost gap-0 text-secondary normal-case text-2xl"
+        >
           Byte<span className="text-primary">Blaze</span>
-        </a>
+        </Link>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 font-bold">
-          <li>
-            <a>Home</a>
-          </li>
-          <li className="text-primary">
-            <a>Blogs</a>
-          </li>
-          <li>
-            <a>Bookmarks</a>
-          </li>
+      <div className="flex-none gap-2">
+        <ul className="menu menu-horizontal px-1 font-bold hidden sm:flex gap-5">
+          <NavLink to="/" className={({isActive}) => isActive? "text-primary": "font-bold"}>Home</NavLink>
+          <NavLink to="/blogs" className={({isActive}) => isActive? "text-primary": "font-bold"}>Blogs</NavLink>
+          <NavLink to="/bookmarks" className={({isActive}) => isActive? "text-primary": "font-bold"}>Bookmarks</NavLink>
         </ul>
         <label className="cursor-pointer grid place-items-center">
           <input
